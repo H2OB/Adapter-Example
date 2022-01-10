@@ -9,39 +9,41 @@ import Foundation
 import UIKit
 
 // MARK: -- 分区视图基类
-class AdapterSectionView: UIView {
+open class AdapterSectionView: UITableViewHeaderFooterView {
     
     /// 数据 子类需重写
-    var data:Any?
+    open var data:Any?
     
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
+    required public override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        
         setUp()
     }
     
-    required init?(coder: NSCoder) {
+    
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         
     }
     
-    override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         
         setUp()
     }
     
     /// 设置
-    func setUp() {
+    open func setUp() {
         
     }
     
     /// 将要出现
-    func willDisplay(){
+    open func willDisplay(){
         
     }
     
     /// 已经消失
-    func didEndDisplaying(){
+    open func didEndDisplaying(){
         
     }
     

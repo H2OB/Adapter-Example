@@ -42,28 +42,34 @@ class ViewController: UIViewController {
     
     func refresh(){
         
-        var dataInput = [DiffSection]()
+        // diff算法唯一标识Set
+        var diffIds = Set<Int>()
         
-        var IDs = Set<Int>()
+        // 分区
         let section = AdapterSection(0)
+        
+        // 分区里的行数据
         var array = [AdapterRow]()
         
         for _ in 0..<15 {
             
-            var id = Int(arc4random() % 50)
+            // 随机生成算法唯一标识
+            var diffId = Int.random(in: 0...50)
             
-            while IDs.contains(id) {
-                id = Int(arc4random() % 50)
+            // 防重复
+            while diffIds.contains(diffId) {
+                
+                diffId = Int(arc4random() % 50)
             }
             
-            array.append(AdapterRow(diffID:id,orginal: "\(id)", identifier: "CustomCell",50))
+            let row = AdapterRow(differenceId: diffId, identifier: "CustomCell", orginal: "\(diffId)")
             
-            IDs.insert(id)
+            array.append(row)
+            
+            diffIds.insert(diffId)
         }
       
-        dataInput.append(DiffSection(model: section, elements: array))
-        
-        tableView.dataInput = dataInput
+        tableView.dataInput = [DiffSection(model: section, elements: array)]
         
     }
     

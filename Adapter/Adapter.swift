@@ -10,13 +10,13 @@ import UIKit
 import DifferenceKit
 
 // MARK: -- 闭包定义
-typealias SelectCallback = (AdapterRow) -> Void
-typealias InsideCallback = (AdapterRow,Any?) -> Void
-typealias DiffSection = ArraySection<AdapterSection, AdapterRow>
-
+public typealias SelectCallback = (AdapterRow) -> Void
+public typealias InsideCallback = (AdapterRow,Any?) -> Void
+public typealias DiffSection = ArraySection<AdapterSection, AdapterRow>
+public typealias Prefetchback = ([IndexPath]) -> Void
 
 // MARK: -- 回调
-class Adapter: NSObject {
+ class Adapter: NSObject {
     
     private weak var tableView : UITableView!
     
@@ -34,12 +34,17 @@ class Adapter: NSObject {
         }
     }
     
-    
     ///  点击row事件
     var didSelectRow:SelectCallback?
     
     ///  rown内部事件
     var insideAction:InsideCallback?
+    
+    /// 预加载
+    var prefetchCallback:Prefetchback?
+    
+    /// 取消预加载
+    var cancelPrefetchCallback:Prefetchback?
     
 }
 
@@ -248,6 +253,11 @@ extension Adapter: UITableViewDataSourcePrefetching {
             let node = dataArray[indexPath.section].elements[indexPath.row]
             node.prefetching()
         }
+        
+        if let callback = prefetchCallback {
+            callback(indexPaths)
+        }
+        
     }
     
     // 取消预加载
@@ -257,6 +267,11 @@ extension Adapter: UITableViewDataSourcePrefetching {
             let node = dataArray[indexPath.section].elements[indexPath.row]
             node.cancelPrefetching()
         }
+        
+        if let callback = cancelPrefetchCallback {
+            callback(indexPaths)
+        }
+        
     }
     
 }

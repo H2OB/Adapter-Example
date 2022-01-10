@@ -11,13 +11,13 @@ import UIKit
 
 // MARK: -- 关联对象
 // tips 只能用关联对象来确保唯一性
-extension UITableView {
+private extension UITableView {
     
     private struct AssociatedKeys {
         static var AdapterKey = "AdapterKey"
     }
     
-    var adapter:Adapter {
+    private var adapter:Adapter {
         
         //获取关联
         var value = objc_getAssociatedObject(self, &AssociatedKeys.AdapterKey) as? Adapter
@@ -36,9 +36,12 @@ extension UITableView {
         return value!
         
     }
+}
+
+extension UITableView {
     
     /// 数据
-    var dataArray: [DiffSection] {
+    public var dataArray: [DiffSection] {
         
         set {
             adapter.dataArray = newValue
@@ -50,7 +53,7 @@ extension UITableView {
         }
     }
     
-    var dataInput: [DiffSection] {
+    public var dataInput: [DiffSection] {
         
         set {
             adapter.dataInput = newValue
@@ -64,7 +67,7 @@ extension UITableView {
     }
     
     ///  点击row事件
-    var didSelectRow:SelectCallback? {
+    public var didSelectRow:SelectCallback? {
         
         set {
             adapter.didSelectRow = newValue
@@ -77,7 +80,7 @@ extension UITableView {
     }
     
     ///  rown内部事件
-    var insideAction:InsideCallback? {
+    public var insideAction:InsideCallback? {
         
         set {
             adapter.insideAction = newValue
@@ -86,6 +89,32 @@ extension UITableView {
         get {
             
             return adapter.insideAction
+        }
+    }
+    
+    /// 预加载
+    public var prefetchCallback:Prefetchback? {
+        
+        set {
+            adapter.prefetchCallback = newValue
+        }
+        
+        get {
+            
+            return adapter.prefetchCallback
+        }
+    }
+    
+    /// 取消预加载
+    public var cancelPrefetchCallback:Prefetchback? {
+        
+        set {
+            adapter.cancelPrefetchCallback = newValue
+        }
+        
+        get {
+            
+            return adapter.cancelPrefetchCallback
         }
     }
     

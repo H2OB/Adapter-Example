@@ -10,33 +10,35 @@ import UIKit
 import DifferenceKit
 
 // MARK: -- 分区基类
-class AdapterSection:Differentiable {
+open class AdapterSection {
     
-    var diffID:Int = 0
+    /// difference算法的唯一标识
+    open var differenceId: Int = 0
     
     /// 分区头高度
-    var headerHeight:CGFloat = CGFloat.leastNonzeroMagnitude
+    open var headerHeight: CGFloat = CGFloat.leastNonzeroMagnitude
     
     /// 分区头视图
-    var headerView:UIView?
+    open var headerView: UIView?
     
     /// 分区脚高度
-    var footerHeight:CGFloat = CGFloat.leastNonzeroMagnitude
+    open var footerHeight: CGFloat = CGFloat.leastNonzeroMagnitude
     
     /// 分区脚视图
-    var footerView:UIView?
+    open var footerView: UIView?
     
+    public init(_ differenceId: Int = 0) {
+        self.differenceId = differenceId
+    }
+}
+
+extension AdapterSection: Differentiable {
     
-    var differenceIdentifier: Int {
-        return diffID
+    public var differenceIdentifier: Int {
+        return differenceId
     }
     
-    init(_ diffID:Int = 0) {
-        self.diffID = diffID
+    public func isContentEqual(to source: AdapterSection) -> Bool {
+        self.differenceId == source.differenceId
     }
-    
-    func isContentEqual(to source: AdapterSection) -> Bool {
-        self.diffID == source.diffID
-    }
-    
 }

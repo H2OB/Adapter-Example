@@ -9,23 +9,23 @@ import Foundation
 import UIKit
 
 // MARK: -- Cell基类
-class AdapterRowCell : UITableViewCell {
+open class AdapterRowCell : UITableViewCell {
     
     /// 行模型 子类需重写
-    var node: AdapterRow!
+    open var node: AdapterRow!
     
-    required override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    required public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setUp()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
-
+        
     }
     
-    override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         
         setUp()
@@ -33,17 +33,17 @@ class AdapterRowCell : UITableViewCell {
     
     
     /// 设置
-    func setUp() {
+    open func setUp() {
         
     }
     
     /// 将要出现
-    func willDisplay(){
+    open func willDisplay(){
         
     }
     
     /// 已经消失
-    func didEndDisplaying(){
+    open func didEndDisplaying(){
         
     }
     
